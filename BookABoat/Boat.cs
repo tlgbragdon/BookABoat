@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace BookABoat
 {
+    /// <summary>
+    /// A boat is a rowing shell available for reservation
+    /// A boat has a unique name, type (single, double, etc), a weightclass rating (light, mid, heavy) and a required skill level
+    /// One or more rowers (depending on boat size) are associated with the boat for a particular time period
+    /// </summary>
     public class Boat
     {
         public int Id { get; set; }
@@ -13,7 +18,8 @@ namespace BookABoat
         public BoatType Type { get; set; }
         public WeightClass WeightClass { get; set; }
         public SkillLevel MinSkillLevelRequired { get; set; }
-        public List<Rower>Rowers { get; set; }
+        public List<Rower> Rowers { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 
 
