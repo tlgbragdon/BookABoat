@@ -68,3 +68,5 @@ bin/*
 Properties/*
 
 
+/BookABoat/obj/Debug
+/.vs/BookABoat/v15

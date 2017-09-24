@@ -13,16 +13,70 @@ namespace BookABoat
     /// </summary>
     public class Boat
     {
-        public int Id { get; set; }
+        private static int lastBoatId = 0;
+
+        #region public properties
+
+        public int Id { get; private set; }
         public string Name { get; set; }
         public BoatType Type { get; set; }
         public WeightClass WeightClass { get; set; }
         public SkillLevel MinSkillLevelRequired { get; set; }
         public List<Rower> Rowers { get; set; }
         public List<Reservation> Reservations { get; set; }
+        #endregion
+
+        private bool isActive = true;
+
+        #region constructors
+
+        public Boat()
+        {
+            Id = ++lastBoatId;   
+            Rowers = new List<Rower>();
+            Reservations = new List<Reservation>();
+            isActive = true;
+        }
+
+        // only an admin/coach should be able to add boat info
+        public Boat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel)
+        {
+            Id = ++lastBoatId;
+            Rowers = new List<Rower>();
+            Reservations = new List<Reservation>();
+            Name = name;
+            Type = type;
+            MinSkillLevelRequired = minSkillLevel;
+            WeightClass = weightClass;
+            isActive = true;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        // only an admin/coach should be able to update boat info
+        public void UpdateBoat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel )
+        {
+            // setup boat info - this would actually be done by admin/coach user
+            Name = name;
+            Type = type;
+            MinSkillLevelRequired = minSkillLevel;
+            WeightClass = weightClass;
+        }
+
+        public void RemoveBoat()
+        {
+            // make sure there are no future reservations
+
+            // make boat inactive rather than do hard delete
+            isActive = false;
+        }
+
+
+        #endregion
+
     }
-
-
     public enum BoatType
     {
         FourShell,

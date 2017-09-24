@@ -13,6 +13,9 @@ namespace BookABoat
     /// </summary>
     public class Rower
     {
+
+        private static int lastRowerId = 0;
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -20,5 +23,35 @@ namespace BookABoat
         public string MobilePhone { get; set; }
         public SkillLevel ApprovedSkillLevel { get; set; }
         public DateTime ValidUntil { get; set; }
+
+        #region constructors
+        public Rower()
+        {
+            Id = ++lastRowerId;
+        }
+
+        public Rower(string firstName, string lastName, string email, string mobile, SkillLevel skillLevel, DateTime expireDate)
+        {
+            Id = ++lastRowerId;
+            FirstName = firstName;
+            LastName = lastName;
+            EmailAddress = email;
+            MobilePhone = mobile;
+            ApprovedSkillLevel = skillLevel;
+        }
+        #endregion
+
+        // only an admin/coach should be able to update skill levels
+        public void UpdateRowerSkillLevel(SkillLevel skillLevel)
+        {
+            ApprovedSkillLevel = skillLevel;
+        }
+
+        // only an admin/coach/registrar should be able to update rower expiration dates
+        public void UpdateRowerExpiration(DateTime expireDate)
+        {
+            ValidUntil = expireDate;
+        }
+
     }
 }
