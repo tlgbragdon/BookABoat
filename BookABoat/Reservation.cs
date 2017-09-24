@@ -29,14 +29,17 @@ namespace BookABoat
             BoatId = boat.Id;
             StartTime = start;
             EndTime = end;
+            ResponsibleRowers = new List<Rower>();
             ResponsibleRowers.Add(rower);
         }
+
         public Reservation(Boat boat, DateTime start, DateTime end, List<Rower> rowers)
         {
             Id = ++lastReservationId;
             BoatId = boat.Id;
             StartTime = start;
             EndTime = end;
+            ResponsibleRowers = new List<Rower>();
             ResponsibleRowers = rowers;
         }
         #endregion
@@ -45,11 +48,14 @@ namespace BookABoat
         public void AddRowerToReservation(Rower rower)
         {
             ResponsibleRowers.Add(rower);
+            Console.WriteLine($"Rower {rower.FirstName} added to reservation for the boat {Program.GetBoatNameById(BoatId)}");
         }
 
         public void RemoveRowerFromReservation(Rower rower)
         {
             ResponsibleRowers.Remove(rower);
+            Console.WriteLine($"Rower {rower.FirstName} removed from reservation for the boat {Program.GetBoatNameById(BoatId)}");
+
         }
         #endregion
 

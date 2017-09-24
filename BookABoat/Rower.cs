@@ -45,12 +45,16 @@ namespace BookABoat
         public void UpdateRowerSkillLevel(SkillLevel skillLevel)
         {
             ApprovedSkillLevel = skillLevel;
+            Console.WriteLine($"Skill level for Rower {FirstName} changed to:  {skillLevel}");
+
         }
 
         // only an admin/coach/registrar should be able to update rower expiration dates
         public void UpdateRowerExpiration(DateTime expireDate)
         {
             ValidUntil = expireDate;
+            Console.WriteLine($"Rower {FirstName} able to reserve boats until:  {expireDate.ToShortDateString()}");
+
         }
 
     }

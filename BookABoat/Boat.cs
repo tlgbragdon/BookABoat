@@ -79,6 +79,7 @@ namespace BookABoat
     }
     public enum BoatType
     {
+        EightShell,
         FourShell,
         QuadShell,
         DoubleShell,
