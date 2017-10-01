@@ -38,25 +38,14 @@ namespace BookABoat
             isActive = true;
         }
 
-        // only an admin/coach should be able to add boat info
-        public Boat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel)
-        {
-            Id = ++lastBoatId;
-            Rowers = new List<Rower>();
-            Reservations = new List<Reservation>();
-            Name = name;
-            Type = type;
-            MinSkillLevelRequired = minSkillLevel;
-            WeightClass = weightClass;
-            isActive = true;
-        }
+
 
         #endregion
 
         #region Public Methods
 
         // only an admin/coach should be able to update boat info
-        public void UpdateBoat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel )
+        public void UpdateBoat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel)
         {
             // setup boat info - this would actually be done by admin/coach user
             Name = name;
@@ -65,6 +54,7 @@ namespace BookABoat
             WeightClass = weightClass;
         }
 
+        // only an admin/coach should be able to update boat info
         public void RemoveBoat()
         {
             // make sure there are no future reservations
@@ -72,7 +62,6 @@ namespace BookABoat
             // make boat inactive rather than do hard delete
             isActive = false;
         }
-
 
         #endregion
 

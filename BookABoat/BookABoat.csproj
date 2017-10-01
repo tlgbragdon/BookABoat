@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Boat.cs" />
+    <Compile Include="BoathouseManager.cs" />
     <Compile Include="Reservation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
