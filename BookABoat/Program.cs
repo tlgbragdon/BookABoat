@@ -65,7 +65,7 @@ namespace BookABoat
             // prompt for rower email address
             Console.Write("Your Email Address: ");
             var emailAddress = Console.ReadLine();
-            var rower = BoathouseManager.GetRowerByEmailAddress(emailAddress);
+            var rower = Registrar.GetRowerByEmailAddress(emailAddress);
 
             if (rower == null)
             {
@@ -150,11 +150,8 @@ namespace BookABoat
         private static void InitRowersForTesting()
         {
             // setup rower info - this would actually be done by admin/registrar
-            var rower = new Rower("Port", "Starboard", "test@test.com", "555555555", SkillLevel.DoubleSkill, DateTime.Parse("12-31-2017"));
-            BoathouseManager.Rowers.Add(rower);
-
-            rower = new Rower("Shelly", "Crewmate", "shelly@email.com", "555555555", SkillLevel.NoviceSkill, DateTime.Parse("12-31-2017"));
-            BoathouseManager.Rowers.Add(rower);
+            Registrar.AddRower("Port", "Starboard", "test@test.com", "555555555", DateTime.UtcNow,  DateTime.Parse("12-31-2017"), SkillLevel.DoubleSkill);
+            Registrar.AddRower("Shelly", "Crewmate", "shelly@email.com", "555555555",  DateTime.UtcNow, DateTime.Parse("12-31-2017"), SkillLevel.NoviceSkill);
         }
 
         /// <summary>
@@ -217,7 +214,7 @@ namespace BookABoat
             //show boat availability for next 7 days
             var now = DateTime.Now;
             var today = now.Date;
-            var bookedReservations = BoathouseManager.GetReservations(boatId, today, today.AddDays(7));
+            var bookedReservations = ReservationManager.GetReservationsForBoat(boatId, today, today.AddDays(7));
             for (var day = today; day <= today.AddDays(7); day = day.AddDays(1))
             {
                 // if not already booked, it is available, so show the date
@@ -241,8 +238,7 @@ namespace BookABoat
 
             var startTime = DateTime.Now.AddDays(1);
             var endTime = startTime.AddHours(4);
-            var reservation = new Reservation(boatId, reserveDate, reserveLength, rower);
-            BoathouseManager.Reservations.Add(reservation);
+            var reservation = ReservationManager.MakeReservation(boatId, reserveDate, reserveLength, rower);
             Console.WriteLine($"Rower {rower.FirstName} has reservered boat {BoathouseManager.GetBoatNameById(reservation.BoatId)}");
 
         }

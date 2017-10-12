@@ -22,7 +22,9 @@ namespace BookABoat
         public string EmailAddress { get; set; }
         public string MobilePhone { get; set; }
         public SkillLevel ApprovedSkillLevel { get; set; }
+        public DateTime JoinDate { get; set; }
         public DateTime ValidUntil { get; set; }
+
 
         #region constructors
         public Rower()
@@ -30,19 +32,11 @@ namespace BookABoat
             Id = ++lastRowerId;
         }
 
-        public Rower(string firstName, string lastName, string email, string mobile, SkillLevel skillLevel, DateTime expireDate)
-        {
-            Id = ++lastRowerId;
-            FirstName = firstName;
-            LastName = lastName;
-            EmailAddress = email;
-            MobilePhone = mobile;
-            ApprovedSkillLevel = skillLevel;
-        }
         #endregion
 
+
         // only an admin/coach should be able to update skill levels
-        public void UpdateRowerSkillLevel(SkillLevel skillLevel)
+        public void UpdateSkillLevel(SkillLevel skillLevel)
         {
             ApprovedSkillLevel = skillLevel;
             Console.WriteLine($"Skill level for Rower {FirstName} changed to:  {skillLevel}");
@@ -50,7 +44,7 @@ namespace BookABoat
         }
 
         // only an admin/coach/registrar should be able to update rower expiration dates
-        public void UpdateRowerExpiration(DateTime expireDate)
+        public void UpdateExpirationDate(DateTime expireDate)
         {
             ValidUntil = expireDate;
             Console.WriteLine($"Rower {FirstName} able to reserve boats until:  {expireDate.ToShortDateString()}");

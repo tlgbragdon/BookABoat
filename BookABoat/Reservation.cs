@@ -23,24 +23,23 @@ namespace BookABoat
         #endregion
 
         #region constructors
-        public Reservation(int boatId, DateTime start, int numHours, Rower rower)
+        public Reservation(int boatId, DateTime start, DateTime end, List<Rower> rowers)
         {
             Id = ++lastReservationId;
             BoatId = boatId;
             StartTime = start;
-            EndTime = start.AddHours(numHours);
-            ResponsibleRowers = new List<Rower>();
-            ResponsibleRowers.Add(rower);
+            EndTime = end;
+            ResponsibleRowers = rowers;
         }
 
-        public Reservation(Boat boat, DateTime start, DateTime end, List<Rower> rowers)
+        public Reservation(int boatId, DateTime start, DateTime end, Rower rower)
         {
             Id = ++lastReservationId;
-            BoatId = boat.Id;
+            BoatId = boatId;
             StartTime = start;
             EndTime = end;
             ResponsibleRowers = new List<Rower>();
-            ResponsibleRowers = rowers;
+            ResponsibleRowers.Add(rower);
         }
         #endregion
 

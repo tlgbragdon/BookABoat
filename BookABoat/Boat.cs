@@ -45,13 +45,14 @@ namespace BookABoat
         #region Public Methods
 
         // only an admin/coach should be able to update boat info
-        public void UpdateBoat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel)
+        public void UpdateBoat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel, bool active)
         {
             // setup boat info - this would actually be done by admin/coach user
             Name = name;
             Type = type;
             MinSkillLevelRequired = minSkillLevel;
             WeightClass = weightClass;
+            isActive = active;
         }
 
         // only an admin/coach should be able to update boat info
