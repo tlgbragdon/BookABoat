@@ -76,8 +76,8 @@ namespace BookABoat
             while (true)
             {
                 Console.WriteLine("Please choose an option below:");
-                Console.WriteLine("    0 to Reserve A Boat");
-                Console.WriteLine("    1 to View Boats Available To You for Reservation");
+                Console.WriteLine("    0 to View Boats Available To You for Reservation");
+                Console.WriteLine("    1 to Reserve A Boat");
                 Console.WriteLine("    Press return to go back");
 
                 var choice = Console.ReadLine();
@@ -85,10 +85,10 @@ namespace BookABoat
                 switch (choice)
                 {
                     case "0":
-                        getBoatReservation(rower);
+                        displayBoats(rower.ApprovedSkillLevel);
                         break;
                     case "1":
-                        displayBoats(rower.ApprovedSkillLevel);
+                        getBoatReservation(rower);
                         break;
                     default:
                         return;
