@@ -13,7 +13,6 @@ namespace BookABoat
     /// </summary>
     public class Rower
     {
-
         private static int lastRowerId = 0;
 
         public int Id { get; set; }
@@ -24,7 +23,6 @@ namespace BookABoat
         public SkillLevel ApprovedSkillLevel { get; set; }
         public DateTime JoinDate { get; set; }
         public DateTime ValidUntil { get; set; }
-
 
         #region constructors
         public Rower()
@@ -48,6 +46,21 @@ namespace BookABoat
         {
             ValidUntil = expireDate;
             Console.WriteLine($"Rower {FirstName} able to reserve boats until:  {expireDate.ToShortDateString()}");
+
+        }
+
+        // 
+        public void UpdateProfile(string emailAddress, string phone, string lastName, string firstName )
+        {
+            if (emailAddress != null)
+                EmailAddress = emailAddress;
+            if (phone != null)
+                MobilePhone = phone;
+            if (lastName != null)
+                LastName = lastName;
+            if (firstName != null)
+                FirstName = firstName;
+            Console.WriteLine($"Profile Updated: {FirstName} {LastName} : {MobilePhone}, {EmailAddress}");
 
         }
 
