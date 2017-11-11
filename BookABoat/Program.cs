@@ -137,14 +137,14 @@ namespace BookABoat
         private static void InitBoatInventoryForTesting()
         {
             // setup a few boats - this would actually be done by admin/coach user
-            var boatRelentless = BoathouseManager.AddBoatToFleet("Relentless", BoatType.QuadShell, WeightClass.Midweight, SkillLevel.QuadSkill);
-            Console.WriteLine($"{boatRelentless.Name} added to Fleet");
-            var boatStoudt = BoathouseManager.AddBoatToFleet("The Stoudt", BoatType.EightShell, WeightClass.Heavyweight, SkillLevel.NoviceSkill);
-            Console.WriteLine($"{boatStoudt.Name} added to Fleet");
-            var boatMahalo = BoathouseManager.AddBoatToFleet("Mahalo", BoatType.DoubleShell, WeightClass.Heavyweight, SkillLevel.DoubleSkill);
-            Console.WriteLine($"{boatMahalo.Name} added to Fleet");
-            var boatWintech21 = BoathouseManager.AddBoatToFleet("Wintech 21", BoatType.SingleShell, WeightClass.Heavyweight, SkillLevel.SingleSkill);
-            Console.WriteLine($"{boatWintech21.Name} added to Fleet");
+            BoathouseManager.AddBoatToFleet("Relentless", BoatType.QuadShell, WeightClass.Midweight, SkillLevel.QuadSkill);
+            //Console.WriteLine($"{boatRelentless.Name} added to Fleet");
+            BoathouseManager.AddBoatToFleet("The Stoudt", BoatType.EightShell, WeightClass.Heavyweight, SkillLevel.NoviceSkill);
+            //Console.WriteLine($"{boatStoudt.Name} added to Fleet");
+            BoathouseManager.AddBoatToFleet("Mahalo", BoatType.DoubleShell, WeightClass.Heavyweight, SkillLevel.DoubleSkill);
+            //Console.WriteLine($"{boatMahalo.Name} added to Fleet");
+            BoathouseManager.AddBoatToFleet("Wintech 21", BoatType.SingleShell, WeightClass.Heavyweight, SkillLevel.SingleSkill);
+            //Console.WriteLine($"{boatWintech21.Name} added to Fleet");
         }
 
         private static void InitRowersForTesting()
@@ -159,13 +159,14 @@ namespace BookABoat
         /// </summary>
         private static void displayBoats()
         {
-            if (BoathouseManager.Fleet.Count == 0)
+            var fleet = BoathouseManager.GetAllActiveBoats();
+            if (fleet.Count == 0)
             {
                 Console.WriteLine("There are no boats.");
             }
 
             Console.WriteLine("Boats available in fleet:");
-            foreach (var boat in BoathouseManager.Fleet)
+            foreach (var boat in fleet)
             {
                 Console.WriteLine($"    {boat.Id} : { boat.Name} has Required (min) Skill Level: {boat.MinSkillLevelRequired}");
 
@@ -179,21 +180,20 @@ namespace BookABoat
         /// <param name="minSkillLevel">minimum required skill level</param>
         private static void displayBoats(SkillLevel minSkillLevel)
         {
-            bool boatFound = false;
             Console.WriteLine("Boats available for you to reserve:");
 
-            foreach (var boat in BoathouseManager.Fleet)
-            {
-                if (boat.MinSkillLevelRequired <= minSkillLevel)
-                {
-                    boatFound = true;
-                    Console.WriteLine($"    {boat.Id} : { boat.Name} has Required (min) Skill Level: {boat.MinSkillLevelRequired}");
-                }
-            }
-            if (!boatFound)
+            List<Boat> boats = BoathouseManager.GetAllActiveBoatsForSkillLevel(minSkillLevel);
+            if (boats.Count == 0)
             {
                 Console.WriteLine("There are no boats available at your skill level.");
+                return;
             }
+
+            foreach (var boat in boats)
+            { 
+                Console.WriteLine($"    {boat.Id} : { boat.Name} has Required (min) Skill Level: {boat.MinSkillLevelRequired}");
+            }
+
         }
 
         /// <summary>

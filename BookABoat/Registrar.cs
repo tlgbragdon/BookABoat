@@ -9,7 +9,8 @@ namespace BookABoat
     public static class Registrar
 
     {
-        public static List<Rower> Rowers = new List<Rower>();
+        //public static List<Rower> Rowers = new List<Rower>();
+        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
 
         public static Rower AddRower(string firstName, string lastName, string emailAddress, string phoneNumber, DateTime joinDate, DateTime expirationDate, SkillLevel skillLevel = SkillLevel.NoviceSkill)
         {
@@ -24,30 +25,49 @@ namespace BookABoat
             rower.ApprovedSkillLevel = skillLevel;  // setup at lowest skill level by default
 
             // add to roster
-            Rowers.Add(rower);
+            db.Rowers.Add(rower);
+            db.SaveChanges();
 
             return rower;
         }
 
         public static void InactivateRower(int rowerId, DateTime expirationDate)
         {
-            var rower = Rowers.Find(r => r.Id == rowerId);
+            var rower = db.Rowers.Where(r => r.Id == rowerId).FirstOrDefault();
             rower.ValidUntil = expirationDate;
-         }
+            db.SaveChanges();
+        }
 
         public static string GetRowerNameById(int id)
         {
-            var rower = Rowers.Find(r => r.Id == id);
+            var rower = db.Rowers.Where(r => r.Id == id).FirstOrDefault();
             return $"{rower.FirstName} {rower.LastName}";
         }
 
         public static Rower GetRowerByEmailAddress(string email)
         {
-            var rower = Rowers.Find(r => r.EmailAddress.Equals(email));
+            var rower = db.Rowers.Where(r => r.EmailAddress.Equals(email)).FirstOrDefault();
             return rower;
         }
 
- 
+        public static void UpdateRowerSkillLevel(int rowerId, SkillLevel skillLevel)
+        {
+            var rower = db.Rowers.Where(r => r.Id == rowerId).FirstOrDefault();
+            rower.ApprovedSkillLevel = skillLevel;
+            db.SaveChanges();
+            Console.WriteLine($"Skill level for Rower {rower.FirstName} changed to:  {skillLevel}");
+
+        }
+
+        // only an admin/coach/registrar should be able to update rower expiration dates
+        public static void UpdateRowerExpirationDate(int rowerId, DateTime expireDate)
+        {
+            var rower = db.Rowers.Where(r => r.Id == rowerId).FirstOrDefault();
+            rower.ValidUntil = expireDate;
+            db.SaveChanges();
+            Console.WriteLine($"Rower {rower.FirstName} able to reserve boats until:  {expireDate.ToShortDateString()}");
+
+        }
 
     }
 }

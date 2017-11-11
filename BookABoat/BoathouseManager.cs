@@ -8,34 +8,45 @@ namespace BookABoat
 {
     public static class BoathouseManager
     {
-        public static List<Boat> Fleet = new List<Boat>();
+        //public static List<Boat> Fleet = new List<Boat>();
+        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
 
         // only an admin/coach should be able to add a boat to the fleet
-        public static Boat AddBoatToFleet(string name, BoatType type, WeightClass weightClass = WeightClass.Lightweight, SkillLevel minSkillLevel = SkillLevel.ExpertSingleSkill)
+        public static void AddBoatToFleet(string name, BoatType type, WeightClass weightClass = WeightClass.Lightweight, SkillLevel minSkillLevel = SkillLevel.ExpertSingleSkill)
         {
             var boat = new Boat();
             boat.Name = name;
             boat.Type = type;
             boat.MinSkillLevelRequired = minSkillLevel;
             boat.WeightClass = weightClass;
+            boat.isActive = true;
+            boat.Rowers = null;
+            boat.Reservations = null;
 
-            // add to fleet
-            Fleet.Add(boat);
+            // add boat to fleet
+            db.Boats.Add(boat);
+            db.SaveChanges();
 
-            return boat;
         }
 
+        public static List<Boat> GetAllActiveBoats()
+        {
+            return db.Boats.Where(b => b.isActive == true).ToList();
+        }
+
+        public static List<Boat>GetAllActiveBoatsForSkillLevel(SkillLevel skillLevel)
+        {
+            return db.Boats.Where(b => b.isActive == true).Where(b => b.MinSkillLevelRequired <= skillLevel).ToList();
+        }
 
         public static Boat GetBoatById(int id)
         {
-            var boat = Fleet.Find(b => b.Id == id);
-            return boat;
+            return db.Boats.Where(b => b.Id == id).FirstOrDefault();
         }
 
         public static string GetBoatNameById(int id)
         {
-            var boat = Fleet.Find(b => b.Id == id);
-            return boat.Name;
+            return db.Boats.Where(b => b.Id == id).FirstOrDefault().Name;
         }
 
     }

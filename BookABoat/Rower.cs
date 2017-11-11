@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,16 @@ namespace BookABoat
     /// </summary>
     public class Rower
     {
-        private static int lastRowerId = 0;
-
+        [Key]
         public int Id { get; set; }
+        [Required]
+        [StringLength(30, ErrorMessage = "First name is limited to 30 characters")]
         public string FirstName { get; set; }
+        [Required]
+        [StringLength(30, ErrorMessage = "Last name is limited to 30 characters")]
         public string LastName { get; set; }
+        [Required]
+        [StringLength(30, ErrorMessage = "Email Address is limited to 30 characters")]
         public string EmailAddress { get; set; }
         public string MobilePhone { get; set; }
         public SkillLevel ApprovedSkillLevel { get; set; }
@@ -27,27 +33,9 @@ namespace BookABoat
         #region constructors
         public Rower()
         {
-            Id = ++lastRowerId;
         }
 
         #endregion
-
-
-        // only an admin/coach should be able to update skill levels
-        public void UpdateSkillLevel(SkillLevel skillLevel)
-        {
-            ApprovedSkillLevel = skillLevel;
-            Console.WriteLine($"Skill level for Rower {FirstName} changed to:  {skillLevel}");
-
-        }
-
-        // only an admin/coach/registrar should be able to update rower expiration dates
-        public void UpdateExpirationDate(DateTime expireDate)
-        {
-            ValidUntil = expireDate;
-            Console.WriteLine($"Rower {FirstName} able to reserve boats until:  {expireDate.ToShortDateString()}");
-
-        }
 
         // 
         public void UpdateProfile(string emailAddress, string phone, string lastName, string firstName )

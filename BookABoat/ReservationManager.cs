@@ -8,12 +8,13 @@ namespace BookABoat
 {
     public static class ReservationManager
     {
-        public static List<Reservation> Reservations = new List<Reservation>();
+        // public static List<Reservation> Reservations = new List<Reservation>();
+        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
 
 
         public static IEnumerable<Reservation> GetReservationsForBoat(int boatId, DateTime startDate, DateTime endDate)
         {
-            var reservations = Reservations.Where(r => r.BoatId == boatId &&
+            var reservations = db.Reservations.Where(r => r.BoatId == boatId &&
                                                  r.StartTime.Date >= startDate &&
                                                  r.EndTime.Date <= endDate);
             return reservations;
@@ -25,7 +26,7 @@ namespace BookABoat
             var boat = BoathouseManager.GetBoatById(boatId);
             var reservation = new Reservation(boatId, startDate, endDate, rowers);
 
-                return reservation;
+            return reservation;
         }
 
         public static Reservation MakeReservation(int boatId, DateTime startDate, int hoursToReserve, Rower rower)

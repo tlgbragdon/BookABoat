@@ -21,6 +21,10 @@ namespace BookABoat
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual DbSet<Boat> Boats { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Rower> Rowers { get; set; }
+
+
     }
 
     //public class MyEntity

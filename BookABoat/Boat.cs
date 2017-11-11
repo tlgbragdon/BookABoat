@@ -13,8 +13,7 @@ namespace BookABoat
     /// </summary>
     public class Boat
     {
-        private static int lastBoatId = 0;
-
+ 
         #region public properties
 
         public int Id { get; private set; }
@@ -22,17 +21,16 @@ namespace BookABoat
         public BoatType Type { get; set; }
         public WeightClass WeightClass { get; set; }
         public SkillLevel MinSkillLevelRequired { get; set; }
-        public List<Rower> Rowers { get; set; }
-        public List<Reservation> Reservations { get; set; }
+        public bool isActive = true;
+        public virtual List<Rower> Rowers { get; set; }
+        public virtual List<Reservation> Reservations { get; set; }
         #endregion
 
-        private bool isActive = true;
-
+ 
         #region constructors
 
         public Boat()
         {
-            Id = ++lastBoatId;   
             Rowers = new List<Rower>();
             Reservations = new List<Reservation>();
             isActive = true;
@@ -58,7 +56,7 @@ namespace BookABoat
         // only an admin/coach should be able to update boat info
         public void RemoveBoat()
         {
-            // make sure there are no future reservations
+            // TODO: make sure there are no future reservations
 
             // make boat inactive rather than do hard delete
             isActive = false;

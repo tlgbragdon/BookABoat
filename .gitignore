@@ -67,6 +67,13 @@ obj/*
 bin/*
 Properties/*
 
+/BookABoat/bin/*
+/BookABoat/obj/*
+/BookABoat/Properties/*
+
+/BookABoatUI/bin/*
+/BookABoatUI/obj/*
+/BookABoatUI/Properties/*
 
 /BookABoat/obj/Debug
 /.vs/BookABoat/v15

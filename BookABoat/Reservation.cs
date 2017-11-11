@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,18 @@ namespace BookABoat
     {
 
         private static int lastReservationId = 0;
+        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
 
         #region Public Properties
+        [Key]
         public int Id { get; set; }
+        [Required]
         public DateTime StartTime { get; set; }
+        [Required]
         public DateTime EndTime { get; set; }
+        [Required]
         public int BoatId { get; set; }
+        [Required]
         public List<Rower> ResponsibleRowers { get; set; }
         #endregion
 
@@ -30,6 +37,7 @@ namespace BookABoat
             StartTime = start;
             EndTime = end;
             ResponsibleRowers = rowers;
+           
         }
 
         public Reservation(int boatId, DateTime start, DateTime end, Rower rower)
@@ -47,6 +55,8 @@ namespace BookABoat
         public void AddRowerToReservation(Rower rower)
         {
             ResponsibleRowers.Add(rower);
+            db.SaveChanges();
+
             Console.WriteLine($"Rower {rower.FirstName} added to reservation for the boat {BoathouseManager.GetBoatNameById(BoatId)}");
         }
 
