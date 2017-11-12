@@ -21,7 +21,7 @@ namespace BookABoatUI.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("BoathouseModel", throwIfV1Schema: false)
         {
         }
 

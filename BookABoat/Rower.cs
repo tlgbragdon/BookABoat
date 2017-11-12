@@ -15,20 +15,22 @@ namespace BookABoat
     public class Rower
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
         [Required]
-        [StringLength(30, ErrorMessage = "First name is limited to 30 characters")]
+        [StringLength(20, ErrorMessage = "First name is limited to 20 characters")]
         public string FirstName { get; set; }
         [Required]
-        [StringLength(30, ErrorMessage = "Last name is limited to 30 characters")]
+        [StringLength(20, ErrorMessage = "Last name is limited to 20 characters")]
         public string LastName { get; set; }
         [Required]
-        [StringLength(30, ErrorMessage = "Email Address is limited to 30 characters")]
+        [StringLength(50, ErrorMessage = "Email Address is limited to 50 characters")]
         public string EmailAddress { get; set; }
         public string MobilePhone { get; set; }
         public SkillLevel ApprovedSkillLevel { get; set; }
         public DateTime JoinDate { get; set; }
         public DateTime ValidUntil { get; set; }
+        public virtual ICollection<Boat> Boats { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
         #region constructors
         public Rower()

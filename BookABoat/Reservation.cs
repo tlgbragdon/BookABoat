@@ -13,12 +13,12 @@ namespace BookABoat
     public class Reservation
     {
 
-        private static int lastReservationId = 0;
-        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
+        //private static int lastReservationId = 0;
+        private static BoathouseModel db = new BoathouseModel();  // this opens connection to our db
 
         #region Public Properties
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
         [Required]
         public DateTime StartTime { get; set; }
         [Required]
@@ -32,7 +32,7 @@ namespace BookABoat
         #region constructors
         public Reservation(int boatId, DateTime start, DateTime end, List<Rower> rowers)
         {
-            Id = ++lastReservationId;
+            //Id = ++lastReservationId;
             BoatId = boatId;
             StartTime = start;
             EndTime = end;
@@ -42,7 +42,7 @@ namespace BookABoat
 
         public Reservation(int boatId, DateTime start, DateTime end, Rower rower)
         {
-            Id = ++lastReservationId;
+            //Id = ++lastReservationId;
             BoatId = boatId;
             StartTime = start;
             EndTime = end;

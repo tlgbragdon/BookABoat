@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,21 +10,25 @@ namespace BookABoat
     /// <summary>
     /// A boat is a rowing shell available for reservation
     /// A boat has a unique name, type (single, double, etc), a weightclass rating (light, mid, heavy) and a required skill level
-    /// One or more rowers (depending on boat size) are associated with the boat for a particular time period
+    /// One or more reservations may be made for any boat
+    /// One or more rowers (depending on boat size) are associated with the boat for a particular reservation
     /// </summary>
     public class Boat
     {
  
         #region public properties
 
+        [Key]
         public int Id { get; private set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public BoatType Type { get; set; }
         public WeightClass WeightClass { get; set; }
         public SkillLevel MinSkillLevelRequired { get; set; }
         public bool isActive = true;
-        public virtual List<Rower> Rowers { get; set; }
-        public virtual List<Reservation> Reservations { get; set; }
+        //public virtual ICollection<Rower> Rowers { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
         #endregion
 
  
@@ -31,12 +36,10 @@ namespace BookABoat
 
         public Boat()
         {
-            Rowers = new List<Rower>();
-            Reservations = new List<Reservation>();
+            //Rowers = new List<Rower>();
+            //Reservations = new List<Reservation>();
             isActive = true;
         }
-
-
 
         #endregion
 
@@ -67,12 +70,13 @@ namespace BookABoat
     }
     public enum BoatType
     {
-        EightShell,
-        FourShell,
-        QuadShell,
-        DoubleShell,
-        PairShell,
-        SingleShell
+        Eight,
+        FourWith,
+        FourWithout,
+        Quad,
+        Double,
+        Pair,
+        Single
     }
 
     public enum WeightClass
@@ -87,8 +91,8 @@ namespace BookABoat
         NoviceSkill = 0,
         QuadSkill = 10,
         DoubleSkill = 20,
-        PairSkill = 25,
-        SingleSkill = 30,
+        BeginnerSingleSkill = 25,
+        PairSkill = 30,
         ExpertSingleSkill = 40
         
     }

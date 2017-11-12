@@ -8,8 +8,7 @@ namespace BookABoat
 {
     public static class BoathouseManager
     {
-        //public static List<Boat> Fleet = new List<Boat>();
-        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
+        private static BoathouseModel db = new BoathouseModel();  // this opens connection to our db
 
         // only an admin/coach should be able to add a boat to the fleet
         public static void AddBoatToFleet(string name, BoatType type, WeightClass weightClass = WeightClass.Lightweight, SkillLevel minSkillLevel = SkillLevel.ExpertSingleSkill)
@@ -20,7 +19,7 @@ namespace BookABoat
             boat.MinSkillLevelRequired = minSkillLevel;
             boat.WeightClass = weightClass;
             boat.isActive = true;
-            boat.Rowers = null;
+            //boat.Rowers = null;
             boat.Reservations = null;
 
             // add boat to fleet

@@ -137,13 +137,13 @@ namespace BookABoat
         private static void InitBoatInventoryForTesting()
         {
             // setup a few boats - this would actually be done by admin/coach user
-            BoathouseManager.AddBoatToFleet("Relentless", BoatType.QuadShell, WeightClass.Midweight, SkillLevel.QuadSkill);
+            BoathouseManager.AddBoatToFleet("Relentless", BoatType.Quad, WeightClass.Midweight, SkillLevel.QuadSkill);
             //Console.WriteLine($"{boatRelentless.Name} added to Fleet");
-            BoathouseManager.AddBoatToFleet("The Stoudt", BoatType.EightShell, WeightClass.Heavyweight, SkillLevel.NoviceSkill);
+            BoathouseManager.AddBoatToFleet("The Stoudt", BoatType.Eight, WeightClass.Heavyweight, SkillLevel.NoviceSkill);
             //Console.WriteLine($"{boatStoudt.Name} added to Fleet");
-            BoathouseManager.AddBoatToFleet("Mahalo", BoatType.DoubleShell, WeightClass.Heavyweight, SkillLevel.DoubleSkill);
+            BoathouseManager.AddBoatToFleet("Mahalo", BoatType.Double, WeightClass.Heavyweight, SkillLevel.DoubleSkill);
             //Console.WriteLine($"{boatMahalo.Name} added to Fleet");
-            BoathouseManager.AddBoatToFleet("Wintech 21", BoatType.SingleShell, WeightClass.Heavyweight, SkillLevel.SingleSkill);
+            BoathouseManager.AddBoatToFleet("Wintech 21", BoatType.Single, WeightClass.Heavyweight, SkillLevel.BeginnerSingleSkill);
             //Console.WriteLine($"{boatWintech21.Name} added to Fleet");
         }
 

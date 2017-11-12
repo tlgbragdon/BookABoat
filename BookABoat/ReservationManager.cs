@@ -9,7 +9,7 @@ namespace BookABoat
     public static class ReservationManager
     {
         // public static List<Reservation> Reservations = new List<Reservation>();
-        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
+        private static BoathouseModel db = new BoathouseModel();  // this opens connection to our db
 
 
         public static IEnumerable<Reservation> GetReservationsForBoat(int boatId, DateTime startDate, DateTime endDate)

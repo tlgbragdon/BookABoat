@@ -10,7 +10,7 @@ namespace BookABoat
 
     {
         //public static List<Rower> Rowers = new List<Rower>();
-        private static BoathouseManagerModel db = new BoathouseManagerModel();  // this opens connection to our db
+        private static BoathouseModel db = new BoathouseModel();  // this opens connection to our db
 
         public static Rower AddRower(string firstName, string lastName, string emailAddress, string phoneNumber, DateTime joinDate, DateTime expirationDate, SkillLevel skillLevel = SkillLevel.NoviceSkill)
         {
