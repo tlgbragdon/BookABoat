@@ -16,7 +16,7 @@ namespace BookABoat
     public class Boat
     {
  
-        #region public properties
+        #region properties
 
         [Key]
         public int Id { get; private set; }
@@ -26,8 +26,11 @@ namespace BookABoat
         public BoatType Type { get; set; }
         public WeightClass WeightClass { get; set; }
         public SkillLevel MinSkillLevelRequired { get; set; }
-        public bool isActive = true;
-        //public virtual ICollection<Rower> Rowers { get; set; }
+        public bool IsActive = true;
+        public DateTime DateAquired { get; set; }
+        public string Make { get; set; }
+        public int YearOfManufacture { get; set; }
+
         public virtual ICollection<Reservation> Reservations { get; set; }
         #endregion
 
@@ -36,9 +39,8 @@ namespace BookABoat
 
         public Boat()
         {
-            //Rowers = new List<Rower>();
-            //Reservations = new List<Reservation>();
-            isActive = true;
+            IsActive = true;
+            DateAquired = DateTime.UtcNow;
         }
 
         #endregion
@@ -53,7 +55,7 @@ namespace BookABoat
             Type = type;
             MinSkillLevelRequired = minSkillLevel;
             WeightClass = weightClass;
-            isActive = active;
+            IsActive = active;
         }
 
         // only an admin/coach should be able to update boat info
@@ -62,7 +64,7 @@ namespace BookABoat
             // TODO: make sure there are no future reservations
 
             // make boat inactive rather than do hard delete
-            isActive = false;
+            IsActive = false;
         }
 
         #endregion
@@ -70,20 +72,24 @@ namespace BookABoat
     }
     public enum BoatType
     {
-        Eight,
+        EightWith,
         FourWith,
         FourWithout,
-        Quad,
-        Double,
-        Pair,
-        Single
+        QuadWith,
+        QuadWithout,
+        DoubleWithout,
+        PairWith,
+        PairWithout,
+        SingleWithout
     }
 
     public enum WeightClass
     {
+        Flyweigth,
         Lightweight,
         Midweight,
-        Heavyweight
+        Heavyweight,
+        HeavyweightPlus
     }
 
     public enum SkillLevel

@@ -9,48 +9,45 @@ namespace BookABoat
 {
     /// <summary>
     /// A rower is a single user that may reserve a boat
-    /// A rower has a skill level defined by the coach (admin) and 
+    /// A rower has a skill level defined by the coach or registrar (admin) and 
     /// can only reserve boats at their skill level or below
     /// </summary>
     public class Rower
     {
         [Key]
         public int Id { get; private set; }
-        [Required]
-        [StringLength(20, ErrorMessage = "First name is limited to 20 characters")]
         public string FirstName { get; set; }
-        [Required]
-        [StringLength(20, ErrorMessage = "Last name is limited to 20 characters")]
         public string LastName { get; set; }
-        [Required]
-        [StringLength(50, ErrorMessage = "Email Address is limited to 50 characters")]
-        public string EmailAddress { get; set; }
         public string MobilePhone { get; set; }
         public SkillLevel ApprovedSkillLevel { get; set; }
         public DateTime JoinDate { get; set; }
         public DateTime ValidUntil { get; set; }
-        public virtual ICollection<Boat> Boats { get; set; }
+        public string Username { get; set; }
+
+        // navigational relationship 
         public virtual ICollection<Reservation> Reservations { get; set; }
 
         #region constructors
-        public Rower()
+        public Rower(string emailAddress)
         {
-        }
+            Username = emailAddress;
+            ValidUntil = DateTime.UtcNow;
+       }
 
         #endregion
 
-        // 
+       // 
         public void UpdateProfile(string emailAddress, string phone, string lastName, string firstName )
         {
-            if (emailAddress != null)
-                EmailAddress = emailAddress;
+            //if (emailAddress != null)
+            //    EmailAddress = emailAddress;
             if (phone != null)
                 MobilePhone = phone;
             if (lastName != null)
                 LastName = lastName;
             if (firstName != null)
                 FirstName = firstName;
-            Console.WriteLine($"Profile Updated: {FirstName} {LastName} : {MobilePhone}, {EmailAddress}");
+            Console.WriteLine($"Profile Updated: {FirstName} {LastName} : {MobilePhone}");
 
         }
 

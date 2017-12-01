@@ -3,33 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 
 namespace BookABoat
 {
     public static class Registrar
 
     {
-        //public static List<Rower> Rowers = new List<Rower>();
+        //private static UserManager<ApplicationUser> UserManager { get; }
+
+        //private static UserManager<ApplicationUser> userManager =
+        //            new UserManager<ApplicationUser>(
+        //                 new UserStore<ApplicationUser>(new BoathouseModel()));
+
         private static BoathouseModel db = new BoathouseModel();  // this opens connection to our db
 
-        public static Rower AddRower(string firstName, string lastName, string emailAddress, string phoneNumber, DateTime joinDate, DateTime expirationDate, SkillLevel skillLevel = SkillLevel.NoviceSkill)
+        public static Rower AddRower(string firstName, string lastName, string emailAddress, string phoneNumber, DateTime? joinDate, DateTime? expirationDate, SkillLevel skillLevel = SkillLevel.NoviceSkill)
         {
-            var rower = new Rower();
+            // TODO: make sure this is not a duplicate addition
+            var rower = new Rower(emailAddress);
             rower.FirstName = firstName;
             rower.LastName = lastName;
-            rower.EmailAddress = emailAddress;
             rower.MobilePhone = phoneNumber;
-            rower.JoinDate = joinDate;
-            rower.ValidUntil = expirationDate;
+
+            rower.JoinDate = joinDate ?? DateTime.UtcNow;
+            rower.ValidUntil = expirationDate ?? DateTime.UtcNow;
 
             rower.ApprovedSkillLevel = skillLevel;  // setup at lowest skill level by default
 
             // add to roster
             db.Rowers.Add(rower);
+            // add to rowers for this account
             db.SaveChanges();
 
             return rower;
         }
+
+        //public static bool RowerExists(string email)
+        //{
+        //    return db.Rowers.Any(r => r.EmailAddress == email);
+        //}
 
         public static void InactivateRower(int rowerId, DateTime expirationDate)
         {
@@ -38,17 +51,35 @@ namespace BookABoat
             db.SaveChanges();
         }
 
+        public static int GetUserByEmail(string emailAddress)
+        {
+            var users = Membership.FindUsersByEmail(emailAddress);
+            //if (users.Count > 1)
+            //    return users[0].
+            //return;
+
+            ////var resultList = new List<ApplicationUser>();
+            ////var List = userManager.Users.ToList();
+            ////foreach (var user in List)
+            ////{
+            ////    if (IsUserInRole(user.Id, roleName))
+            ////        resultList.Add(user);
+            ////}
+            ////return resultList;
+            return 1;
+        }
+
         public static string GetRowerNameById(int id)
         {
             var rower = db.Rowers.Where(r => r.Id == id).FirstOrDefault();
             return $"{rower.FirstName} {rower.LastName}";
         }
 
-        public static Rower GetRowerByEmailAddress(string email)
-        {
-            var rower = db.Rowers.Where(r => r.EmailAddress.Equals(email)).FirstOrDefault();
-            return rower;
-        }
+        //public static Rower GetRowerByEmailAddress(string email)
+        //{
+        //    var rower = db.Rowers.Where(r => r.EmailAddress.Equals(email)).FirstOrDefault();
+        //    return rower;
+        //}
 
         public static void UpdateRowerSkillLevel(int rowerId, SkillLevel skillLevel)
         {

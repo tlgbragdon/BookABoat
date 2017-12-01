@@ -3,7 +3,7 @@ namespace BookABoat.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class UpdateRelationships : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -16,11 +16,11 @@ namespace BookABoat.Migrations
                         Type = c.Int(nullable: false),
                         WeightClass = c.Int(nullable: false),
                         MinSkillLevelRequired = c.Int(nullable: false),
-                        Rower_Id = c.Int(),
+                        DateAquired = c.DateTime(nullable: false),
+                        Make = c.String(),
+                        YearOfManufacture = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Rowers", t => t.Rower_Id)
-                .Index(t => t.Rower_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Reservations",
@@ -31,24 +31,35 @@ namespace BookABoat.Migrations
                         EndTime = c.DateTime(nullable: false),
                         BoatId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Boats", t => t.BoatId, cascadeDelete: true)
-                .Index(t => t.BoatId);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Rowers",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(nullable: false, maxLength: 20),
-                        LastName = c.String(nullable: false, maxLength: 20),
-                        EmailAddress = c.String(nullable: false, maxLength: 50),
+                        FirstName = c.String(),
+                        LastName = c.String(),
                         MobilePhone = c.String(),
                         ApprovedSkillLevel = c.Int(nullable: false),
                         JoinDate = c.DateTime(nullable: false),
                         ValidUntil = c.DateTime(nullable: false),
+                        Username = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.ReservationBoats",
+                c => new
+                    {
+                        Reservation_Id = c.Int(nullable: false),
+                        Boat_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Reservation_Id, t.Boat_Id })
+                .ForeignKey("dbo.Reservations", t => t.Reservation_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Boats", t => t.Boat_Id, cascadeDelete: true)
+                .Index(t => t.Reservation_Id)
+                .Index(t => t.Boat_Id);
             
             CreateTable(
                 "dbo.RowerReservations",
@@ -67,15 +78,16 @@ namespace BookABoat.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Reservations", "BoatId", "dbo.Boats");
             DropForeignKey("dbo.RowerReservations", "Reservation_Id", "dbo.Reservations");
             DropForeignKey("dbo.RowerReservations", "Rower_Id", "dbo.Rowers");
-            DropForeignKey("dbo.Boats", "Rower_Id", "dbo.Rowers");
+            DropForeignKey("dbo.ReservationBoats", "Boat_Id", "dbo.Boats");
+            DropForeignKey("dbo.ReservationBoats", "Reservation_Id", "dbo.Reservations");
             DropIndex("dbo.RowerReservations", new[] { "Reservation_Id" });
             DropIndex("dbo.RowerReservations", new[] { "Rower_Id" });
-            DropIndex("dbo.Reservations", new[] { "BoatId" });
-            DropIndex("dbo.Boats", new[] { "Rower_Id" });
+            DropIndex("dbo.ReservationBoats", new[] { "Boat_Id" });
+            DropIndex("dbo.ReservationBoats", new[] { "Reservation_Id" });
             DropTable("dbo.RowerReservations");
+            DropTable("dbo.ReservationBoats");
             DropTable("dbo.Rowers");
             DropTable("dbo.Reservations");
             DropTable("dbo.Boats");

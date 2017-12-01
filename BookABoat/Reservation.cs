@@ -25,8 +25,9 @@ namespace BookABoat
         public DateTime EndTime { get; set; }
         [Required]
         public int BoatId { get; set; }
-        [Required]
-        public List<Rower> ResponsibleRowers { get; set; }
+       
+        public virtual ICollection<Rower> ResponsibleRowers { get; set; }
+        public virtual ICollection<Boat> Boats { get; set; }
         #endregion
 
         #region constructors
@@ -36,8 +37,11 @@ namespace BookABoat
             BoatId = boatId;
             StartTime = start;
             EndTime = end;
-            ResponsibleRowers = rowers;
-           
+            ResponsibleRowers = new List<Rower>();
+            foreach (var rower in rowers)
+            {
+                ResponsibleRowers.Add(rower);
+            }
         }
 
         public Reservation(int boatId, DateTime start, DateTime end, Rower rower)
