@@ -4,16 +4,16 @@ namespace BookABoat
     using System.Data.Entity;
     using System.Linq;
 
-    public class BoathouseModel : DbContext
+    public class BoathouseRowModel : DbContext
     {
-        // Your context has been configured to use a 'BoathouseModel' connection string from your application's 
+        // Your context has been configured to use a 'BoathouseRowModel' connection string from your application's 
         // configuration file (App.config or Web.config). By default, this connection string targets the 
-        // 'BookABoat.BoathouseModel' database on your LocalDb instance. 
+        // 'BookABoat.BoathouseRowModel' database on your LocalDb instance. 
         // 
-        // If you wish to target a different database and/or database provider, modify the 'BoathouseModel' 
+        // If you wish to target a different database and/or database provider, modify the 'BoathouseRowModel' 
         // connection string in the application configuration file.
-        public BoathouseModel()
-            : base("name=BoathouseModel")
+        public BoathouseRowModel()
+            : base("name=BoathouseRowModel")
         {
         }
 

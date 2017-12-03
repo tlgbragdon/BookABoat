@@ -14,9 +14,9 @@ namespace BookABoat
 
         //private static UserManager<ApplicationUser> userManager =
         //            new UserManager<ApplicationUser>(
-        //                 new UserStore<ApplicationUser>(new BoathouseModel()));
+        //                 new UserStore<ApplicationUser>(new BoathouseRowModel()));
 
-        private static BoathouseModel db = new BoathouseModel();  // this opens connection to our db
+        private static BoathouseRowModel db = new BoathouseRowModel();  // this opens connection to our db
 
         public static Rower AddRower(string firstName, string lastName, string emailAddress, string phoneNumber, DateTime? joinDate, DateTime? expirationDate, SkillLevel skillLevel = SkillLevel.NoviceSkill)
         {

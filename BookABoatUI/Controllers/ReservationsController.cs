@@ -12,7 +12,7 @@ namespace BookABoatUI.Controllers
 {
     public class ReservationsController : Controller
     {
-        private BoathouseModel db = new BoathouseModel();
+        private BoathouseRowModel db = new BoathouseRowModel();
 
         // GET: Reservations
         public ActionResult Index()

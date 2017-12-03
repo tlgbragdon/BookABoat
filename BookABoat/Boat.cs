@@ -26,7 +26,7 @@ namespace BookABoat
         public BoatType Type { get; set; }
         public WeightClass WeightClass { get; set; }
         public SkillLevel MinSkillLevelRequired { get; set; }
-        public bool IsActive = true;
+        public bool IsActive { get; set; }
         public DateTime DateAquired { get; set; }
         public string Make { get; set; }
         public int YearOfManufacture { get; set; }
@@ -48,15 +48,15 @@ namespace BookABoat
         #region Public Methods
 
         // only an admin/coach should be able to update boat info
-        public void UpdateBoat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel, bool active)
-        {
-            // setup boat info - this would actually be done by admin/coach user
-            Name = name;
-            Type = type;
-            MinSkillLevelRequired = minSkillLevel;
-            WeightClass = weightClass;
-            IsActive = active;
-        }
+        //public void UpdateBoat(string name, BoatType type, WeightClass weightClass, SkillLevel minSkillLevel, bool active)
+        //{
+        //    // setup boat info - this would actually be done by admin/coach user
+        //    Name = name;
+        //    Type = type;
+        //    MinSkillLevelRequired = minSkillLevel;
+        //    WeightClass = weightClass;
+        //    IsActive = active;
+        //}
 
         // only an admin/coach should be able to update boat info
         public void RemoveBoat()

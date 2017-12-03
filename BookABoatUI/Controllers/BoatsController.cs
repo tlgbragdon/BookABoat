@@ -12,7 +12,7 @@ namespace BookABoatUI.Controllers
 {
     public class BoatsController : Controller
     {
-        private BoathouseModel db = new BoathouseModel();
+        private BoathouseRowModel db = new BoathouseRowModel();
 
         // GET: Boats
         [Authorize]
@@ -74,7 +74,7 @@ namespace BookABoatUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Boat boat = db.Boats.Find(id);
+            Boat boat = BoathouseManager.GetBoatById(id.Value);
             if (boat == null)
             {
                 return HttpNotFound();
@@ -87,12 +87,11 @@ namespace BookABoatUI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Type,WeightClass,MinSkillLevelRequired")] Boat boat)
+        public ActionResult Edit([Bind(Include = "Id,Name,Type,WeightClass,MinSkillLevelRequired,DateAquired,Make,YearOfManufacture")] Boat boat)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(boat).State = EntityState.Modified;
-                db.SaveChanges();
+                BoathouseManager.EditBoat(boat);
                 return RedirectToAction("Index");
             }
             return View(boat);

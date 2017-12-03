@@ -41,7 +41,7 @@ namespace BookABoatUI.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("BoathouseModel", throwIfV1Schema: false)
+            : base("BoathouseRowModel", throwIfV1Schema: false)
         {
         }
 

@@ -59,12 +59,7 @@
   <ItemGroup>
     <Compile Include="Boat.cs" />
     <Compile Include="BoathouseManager.cs" />
-    <Compile Include="BoathouseModel.cs" />
-    <Compile Include="Migrations\201712012324418_Initial.cs" />
-    <Compile Include="Migrations\201712012324418_Initial.Designer.cs">
-      <DependentUpon>201712012324418_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="BoathouseRowModel.cs" />
     <Compile Include="Registrar.cs" />
     <Compile Include="Reservation.cs" />
     <Compile Include="OLD-Program.cs" />
@@ -73,13 +68,10 @@
     <Compile Include="Rower.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712012324418_Initial.resx">
-      <DependentUpon>201712012324418_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

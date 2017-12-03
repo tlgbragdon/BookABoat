@@ -14,7 +14,7 @@ namespace BookABoat
     {
 
         //private static int lastReservationId = 0;
-        private static BoathouseModel db = new BoathouseModel();  // this opens connection to our db
+        private static BoathouseRowModel db = new BoathouseRowModel();  // this opens connection to our db
 
         #region Public Properties
         [Key]
